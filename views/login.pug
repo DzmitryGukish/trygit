@@ -1,0 +1,14 @@
+extends layout
+
+block content
+  form
+    div.col-lg-6
+      div.input-group
+        span.input-group-addon Username
+        input.form-control(type='text' name='username' placeholder='Username')
+
+      div.input-group
+        span.input-group-addon Password
+        input.form-control(type='password' name='userpwd' placeholder='Password')
+
+      input.btn.btn-primary(type='submit')
