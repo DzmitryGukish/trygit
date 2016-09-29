@@ -7,10 +7,9 @@
   },
   "jscsConfig": {
     "preset": "node-style-guide",
-    "requireCurlyBraces": null,
     "excludeFiles": [
       "node_modules",
-      "/public/javascript/bootstrap*"
+      "./public/javascripts"
     ],
     "fileExtensions": [".js"],
     "maxErrors": null,
