@@ -5,6 +5,17 @@
   "scripts": {
     "start": "node ./bin/www"
   },
+  "jscsConfig": {
+    "preset": "node-style-guide",
+    "requireCurlyBraces": null,
+    "excludeFiles": [
+      "node_modules",
+      "/public/javascript/bootstrap*"
+    ],
+    "fileExtensions": [".js"],
+    "maxErrors": null,
+    "fix": true
+  },
   "dependencies": {
     "body-parser": "~1.15.1",
     "cookie-parser": "~1.4.3",
