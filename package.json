@@ -1,6 +1,7 @@
 {
   "name": "trygit",
   "version": "0.0.0",
+  "title": "URL Manager",
   "private": true,
   "scripts": {
     "start": "node ./bin/www"
