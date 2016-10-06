@@ -11,6 +11,7 @@ var routes = require('./routes/index');
 var app = express();
 
 // View engine setup
+app.engine('ejs', require('ejs-locals'));
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
@@ -42,6 +43,7 @@ app.use(function(req, res, next) {
 if (app.get('env') === 'development') {
   app.use(function(err, req, res, next) {
     res.status(err.status || 500);
+    console.log(err.status);
     res.render('error', {
       message: err.message,
       error: err,

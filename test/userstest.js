@@ -1,4 +1,4 @@
-var Db = require('../modules/users.js');
+var Db = require('../models/users.js');
 
 var users = new Db();
 

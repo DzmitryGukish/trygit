@@ -2,10 +2,20 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title><%- title %></title>
+  <title><%=blocks.title%></title>
   <link rel="icon" href="/favicon.ico" type="image/x-icon">
   <link rel="stylesheet" href="/stylesheets/style.css">
   <link rel="stylesheet" href="/stylesheets/bootstrap.min.css">
 </head>
 <body>
-
+<header>
+  <%-blocks.header%>
+</header>
+<div class="container">
+  <%-body -%>
+</div>
+<footer>
+  <%-blocks.footer%>
+</footer>
+</body>
+</html>

@@ -1,7 +1,10 @@
-<%- include('header', {title: message + " " + error.status}) -%>
+<% layout('/layouts/default') -%>
+
+<% block('title', message + ' ' + error.status); -%>
 
   <h1><%= message %></h1>
-  <h2>Error status <%= error.status %></h2>
+  <h2>Error status [<% if (error.status) { %>
+    <%- error.status -%>
+  <% } -%>
+  ]</h2>
   <pre><%= error.stack %></pre>
-
-<%- include footer -%>

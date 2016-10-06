@@ -1,8 +1,13 @@
-<%- include('header', {title: title}) -%>
+<% layout('/layouts/default') -%>
 
 <h1><%- title %></h1>
-<p>Hello username!</p>
+<p>Hello<% if (locals.username) { %>
+ <%- username -%>
+<% } %>!
+</p>
 
-<button class='btn btn-primary'>Login</button>
+<% if (locals.message) { -%>
+<p class="bg-success">Success: <%- message -%></p>
+<% } -%>
 
-<%- include('footer') -%>
+<a href="login" class='btn btn-primary'>Login</a>
