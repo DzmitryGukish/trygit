@@ -2,7 +2,7 @@ var Db = require('../modules/users.js');
 
 var users = new Db();
 
-var fn = function (err, salt, hash) {
+var fn = function(err, salt, hash) {
   if (err) {
     console.log(err);
   } else {

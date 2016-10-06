@@ -1,9 +1,10 @@
 var express = require('express');
+var config = require('../config');
 var router = express.Router();
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  var title = process.env.npm_package_title;
+  var title = config.get('title');
   res.render('index', { title: title });
 });
 

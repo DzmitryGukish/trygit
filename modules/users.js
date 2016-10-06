@@ -1,52 +1,9 @@
-var fs = require('fs');
+var nano = require('nano')('http://localhost:5984');
+var db = nano.db.use('urlmanaging');
 var crypto = require('crypto');
 
 var users = function(db) {
-  var usersFile = __dirname + '/usersdb.json';
-
-  var loadList = function(callback) {
-    uList = {};
-    fs.stat(usersFile, function (err, stats) {
-      if (err) {
-        if (err.code === 'ENOENT') {
-          callback(null, {});
-        } else {
-          console.log(err);
-        }
-      } else {
-        if (stats.isFile()) {
-          fs.readFile(usersFile, function(err, data) {
-            if (err) {
-              callback(err);
-            };
-            uList = JSON.parse(data);
-            callback(null, uList);
-          });
-        }
-      }
-    })
-  };
-
-  // loadList(function (err) {
-  //   if (err) {
-  //     if (err.code !== 'ENOENT') {
-  //       console.log(' new file ');
-  //     } else {
-  //       console.log(err);
-  //     }
-  //   }
-  // });
-
-  var saveList = function(uList, callback) {
-    var content = JSON.stringify(uList);
-    // console.log(content);
-    fs.writeFile(usersFile, content, function(err) {
-      if (err) {
-        throw (err);
-      };
-      return callback();
-    });
-  };
+  var usersDB = '';
 
   var hash = function(pass, salt, callback) {
     var iterations = 100000;
@@ -73,25 +30,23 @@ var users = function(db) {
   };
 
   this.authenticate = function(name, pass, callback) {
-    loadList(function(err, userList) {
-      var user = userList[name];
-      if (!user) {
-        return callback(new Error('cannot find user ' + name));
+    var user = userList[name];
+    if (!user) {
+      return callback(new Error('cannot find user ' + name));
+    };
+    hash(pass, user.salt, function(err, hash) {
+      if (err) {
+        return callback(err);
       };
-      hash(pass, user.salt, function(err, hash) {
-        if (err) {
-          return callback(err);
-        };
-        if (hash === user.hash) {
-          return callback(null, user);
-        };
-        return callback(new Error('invalid password'));
-      });
+      if (hash === user.hash) {
+        return callback(null, user);
+      };
+      return callback(new Error('invalid password'));
     });
   };
 
   this.newUser = function(name, pass, callback) {
-    loadList(function (err, usersL) {
+    loadList(function(err, usersL) {
       if (!err) {
         if (usersL && usersL[name]) {
           return callback(new Error('user ' + name + ' exists'));
