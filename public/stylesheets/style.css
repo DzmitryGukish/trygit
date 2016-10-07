@@ -1,8 +1,22 @@
-body {
+/*body {
   padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
 a {
   color: #00B7FF;
+}
+*/
+.header_vertical-center {
+  display: inline-block;
+  float: none;
+  vertical-align: middle;
+}
+
+.header_horizontal-right {
+  text-align: right;
+}
+
+.user-name {
+  font-style: italic;
 }

@@ -6,17 +6,24 @@ var router = express.Router();
 /* GET home page. */
 router.get('/', function(req, res, next) {
   var title = config.get('title');
-  var username = 'Incognito';
+  var username = 'Mea nominos estos Esqure Della Incognito Santa Maria De Porko';
   res.render('index', {
-    title: title,
-    username: username,
+    locals:{
+      title: title,
+      username: username,
+    }
   });
+  // res.render('index', {
+  //   title: title
+  // });
 });
 
 router.get('/login', function(req, res, next) {
   var title = config.get('title');
   res.render('login', {
-    title: title
+    locals:{
+      title: title
+    }
   });
 });
 

@@ -5,6 +5,7 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var session = require('express-session');
+var config = require('./config');
 
 var routes = require('./routes/index');
 
@@ -24,7 +25,8 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(session({
-  secret: 'top security words',
+  secret: config.get("session:secret"),
+  key: config.get("session:key")
 }));
 
 app.use('/', routes);
