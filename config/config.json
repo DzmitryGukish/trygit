@@ -4,5 +4,14 @@
   "db": {
     "engine": "couchdb",
     "name": "urlmanaging"
+  },
+  "session": {
+    "secret": "topsecret",
+    "key": "muzzy",
+    "cookie": {
+      "path": "/",
+      "httpOnly": true,
+      "maxAge": null
+    }
   }
 }

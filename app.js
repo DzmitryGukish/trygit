@@ -5,6 +5,8 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var session = require('express-session');
+var ConnectCouchDB = require('connect-couchdb')(session);
+var config = require('./config');
 
 var routes = require('./routes/index');
 
@@ -23,8 +25,16 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+var store = new ConnectCouchDB({
+  name: 'myapp-sessions',
+  compactInterval: -1
+});
+
 app.use(session({
-  secret: 'top security words',
+  secret: config.get("session:secret"),
+  key: config.get("session:key"),
+  cookie: config.get("session:cookie"),
+  store: store
 }));
 
 app.use('/', routes);
