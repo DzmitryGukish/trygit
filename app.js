@@ -37,11 +37,11 @@ app.use(session({
   saveUninitialized: true,
   cookie: config.get("session:cookie"),
   // ,
-  // store: new ConnectCouchDB(storeOptions) // <- that's who resend header!
+  store: new ConnectCouchDB(storeOptions) // <- that's who resend header!
 }));
 
+app.use('/a/', adminRoutes);
 app.use('/', reduсeRoutes);
-app.use('/a', adminRoutes);
 
 
 // Catch 404 and forward to error handler
@@ -69,7 +69,6 @@ if (app.get('env') === 'development') {
 // Production error handler
 // no stacktraces leaked to user
 app.use(function(err, req, res, next) {
-  res.status(err.status || 500);
   res.render('error', {
     message: err.message,
     error: {},

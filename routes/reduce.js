@@ -4,9 +4,7 @@ var router = express.Router();
 var User = require('../models/users').users;
 var http = require('http');
 var util = require('util');
-// var HttpError = require('../models/errors');
-
-console.log('Hello from routes/reduce.js');
+var HttpError = require('../models/errors').HttpError;
 
 
 /* GET home page. */
@@ -14,7 +12,6 @@ router.get('/', function(req, res, next) {
   var title = config.get('title');
   var username = 'Incognito';
   req.session.number = req.session.number + 1 || 1;
-  console.log(req.session.number);
   res.render('index', {
     title: title,
     username: username,
@@ -22,12 +19,17 @@ router.get('/', function(req, res, next) {
   });
 });
 
-router.get(function (err, req, res, next) {
-  res.status(err.status || 500);
-  res.render('error', {
-    message: 'Link ' + req.path + ' not found',
-    error: {},
-  });
+router.get('/:link', function(req, res, next) {
+  var link = req.params.link;
+  if (link === 'a') {
+    res.redirect('/');
+  } else {
+    res.render('broken',{
+      title: config.get('title'),
+      link: link
+    });
+  }
 });
+
 
 module.exports = router;

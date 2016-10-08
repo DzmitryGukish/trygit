@@ -1,3 +1,4 @@
+var util = require('util');
 
 function HttpError(status, message) {
   Error.apply(this, arguments);
@@ -9,4 +10,4 @@ util.inherits(HttpError, Error);
 HttpError.prototype.name = 'HttpError';
 
 
-module.exports = HttpError;
+module.exports.HttpError = HttpError;
