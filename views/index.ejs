@@ -1,13 +1,19 @@
 <% layout('/layouts/default') -%>
+<% block('title', title) -%>
 
 <h1><%- title %></h1>
-<p>Hello<% if (locals.username) { %>
- <%- username -%>
-<% } %>!
+<p>Hello<% if (locals.username) { -%>
+ <% username -%>!
+  <a href="/a/logout" class='btn btn-primary'>Logout</a>
+<% } else { -%>
+!
+  <a href="/a/login" class='btn btn-primary'>Login</a>
+<% } -%>
 </p>
 
+<p>Session Number is <%- sessionNumber -%></p>
 <% if (locals.message) { -%>
 <p class="bg-success">Success: <%- message -%></p>
 <% } -%>
 
-<a href="login" class='btn btn-primary'>Login</a>
+

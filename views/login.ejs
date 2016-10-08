@@ -1,13 +1,47 @@
 <% layout('/layouts/default') -%>
 
-<h1><%- title %></h1>
+<% block('title', title) -%>
 
+<% block('headadd', '<script src="/javascripts/jquery-3.1.1.min.js"></script>') -%>
+
+<h1><%- title %></h1>
+<form id="entry-form" method="post" action="#">
 <div class="input-group">
-  <span class="input-group-addon" id="used-addons-1">Name</span>
-  <input type="text" class="form-control" placeholder="Username" name="name" id="name" area-describedby="used-addons-1">
+  <span class="input-group-addon" id="used-addons-1">Username</span>
+  <input type="text" class="form-control" placeholder="Username" name="username" id="username" area-describedby="used-addons-1">
 </div>
 <div class="input-group">
   <span class="input-group-addon" id="used-addons-2">Password</span>
-  <input type="password" class="form-control" placeholder="Password" name="pwd" id="pwd" area-describedby="used-addons-2">
+  <input type="password" class="form-control" placeholder="Password" name="password" id="password" area-describedby="used-addons-2">
 </div>
-<button class='btn btn-primary' onclick="false;">Save</button>
+<button type="submit" class='btn btn-primary'>Login</button>
+<span class="error"></span>
+</form>
+<script>
+  $(document.forms["entry-form"]).on('submit', function () {
+    var form = $(this);
+
+    $('.error', form).html();
+    $(':submit', form).button("loading");
+
+    $.ajax({
+      url: "/a/login",
+      method: "POST",
+      data: form.serialize(),
+      complete: function () {
+        $(":submit", form).button("reset");
+      },
+      statusCode: {
+        200: function () {
+          form.html("You enter to site").addClass('alert-succes');
+          window.location.href = "/a/links";
+        }
+        403: function (jqXHR) {
+          var error = JSON.parse(jqXHR.responseText);
+          $('.error', form).html(error.message);
+        }
+      }
+    });
+    return false;
+  });
+</script>

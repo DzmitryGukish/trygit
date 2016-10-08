@@ -8,7 +8,8 @@ var session = require('express-session');
 var ConnectCouchDB = require('connect-couchdb')(session);
 var config = require('./config');
 
-var routes = require('./routes/index');
+var adminRoutes = require('./routes/admin');
+var reduсeRoutes = require('./routes/reduce');
 
 var app = express();
 
@@ -25,19 +26,23 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-var store = new ConnectCouchDB({
-  name: 'myapp-sessions',
-  compactInterval: -1
-});
+var storeOptions = {
+  name: 'myapp-sessions'
+};
 
 app.use(session({
   secret: config.get("session:secret"),
   key: config.get("session:key"),
+  resave: true,
+  saveUninitialized: true,
   cookie: config.get("session:cookie"),
-  store: store
+  // ,
+  // store: new ConnectCouchDB(storeOptions) // <- that's who resend header!
 }));
 
-app.use('/', routes);
+app.use('/', reduсeRoutes);
+app.use('/a', adminRoutes);
+
 
 // Catch 404 and forward to error handler
 app.use(function(req, res, next) {
