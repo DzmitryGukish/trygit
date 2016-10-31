@@ -1,7 +1,11 @@
 var config = require('../config');
 var nano = require('nano')(config.get("db:url"));
 
+console.log("db:url is ", config.get("db:url"));
+
 var database = nano.db.use(config.get("db:name"));
+console.log("db:name is ", config.get("db:name"));
+
 
 function insertRecord(rec, recType, callbackSuccess, callbackFail) {
   console.log('argc is ', arguments.length);
@@ -9,9 +13,12 @@ function insertRecord(rec, recType, callbackSuccess, callbackFail) {
     callbackFail = callbackSuccess;
   }
   if (recType === 'user' || recType === 'link') {
+    console.log('recType: ', recType);
     var key = recType + ':' + rec.name.toLowerCase();
+    console.log('Fetch. key: ', key);
     database.fetch({keys: key}, function (err, body) {
       if (err) return callbackFail(err);
+      console.log('Fetch. key: ', key);
       if (body.total_rows > 0 && body.rows[0].error != 'not_found') {
         database.insert(rec, key, function (err, body) {
           if (callbackSuccess && typeof callbackSuccess == "function") {
@@ -60,6 +67,14 @@ function insertLink(rec, callback) {
 }
 
 
-insertUser({name: "Ron Sharman", email: "ronsharman@mail.com"}, function (err, body) {
-  console.log(body,'ok');
-});
+// insertUser({name: "Ron Sharman", email: "ronsharman@mail.com"}, function (err, body) {
+//   console.log(body,'ok');
+// });
+
+
+var orm = {
+  insertUser: insertUser,
+  insertLink: insertLink
+}
+
+module.exports.orm = orm;
