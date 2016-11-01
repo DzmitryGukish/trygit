@@ -29,5 +29,8 @@
     "nconf": "^0.8.4",
     "pug": "2.0.0-alpha6",
     "serve-favicon": "~2.3.0"
+  },
+  "devDependencies": {
+    "mocha": "^3.1.2"
   }
 }
