@@ -26,6 +26,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(session({
   secret: config.get("session:secret"),
+  resave: false,
+  saveUninitialized: true,
   key: config.get("session:key")
 }));
 
@@ -33,7 +35,7 @@ app.use('/', routes);
 
 // Catch 404 and forward to error handler
 app.use(function(req, res, next) {
-  var err = new Error('Not Found');
+  var err = new Error('Path "' + req.path + '" Is Not Found');
   err.status = 404;
   next(err);
 });

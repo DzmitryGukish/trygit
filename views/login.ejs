@@ -2,14 +2,32 @@
 
 <% block('title', title); -%>
 
-<h1><%- title %></h1>
+<h1 class="center-item"><%- title %></h1>
+<div class="container">
 
-<div class="input-group">
-  <span class="input-group-addon" id="used-addons-1">Name</span>
-  <input type="text" class="form-control" placeholder="Username" name="name" id="name" area-describedby="used-addons-1">
+    <h3 class="center-item">Please enter your email and password</h3>
+
+  <!-- <div class="center-div"> -->
+    <div class="col-md-offset-3 col-md-6">
+
+      <div class="input-group login-item">
+        <span class="input-group-addon" id="used-addons-1">Login</span>
+        <input type="text" class="form-control" placeholder="Your email" name="email" id="email" area-describedby="used-addons-1">
+      </div>
+
+      <div class="input-group login-item">
+        <span class="input-group-addon" id="used-addons-2">Password</span>
+        <input type="password" class="form-control" placeholder="Your password" name="pwd" id="pwd" area-describedby="used-addons-2">
+      </div>
+
+      <button class='btn btn-primary' id='login-button' onclick="false;">Log in</button>
+    </div>
+  <!-- </div> -->
+
 </div>
-<div class="input-group">
-  <span class="input-group-addon" id="used-addons-2">Password</span>
-  <input type="password" class="form-control" placeholder="Password" name="pwd" id="pwd" area-describedby="used-addons-2">
-</div>
-<button class='btn btn-primary' onclick="false;">Save</button>
+
+<script>
+$('#login-button').on('click', function () {
+  alert('button pressed! ' + $('#email').val() + ' / ' + $('#pwd').val());
+})
+</script>

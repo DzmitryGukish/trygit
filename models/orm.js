@@ -39,7 +39,7 @@ var orm = {
   },
 
   insertUser: function (rec, callback) {
-    var key = rec.name;
+    var key = rec.email;
     db.get(key, function (err, body, headers) {
       if (err) {
         if (err.errid === 'non_200') {

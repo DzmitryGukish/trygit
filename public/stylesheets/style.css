@@ -7,6 +7,10 @@ a {
   color: #00B7FF;
 }
 */
+html, body {
+  width: 100%;
+}
+
 .header_vertical-center {
   display: inline-block;
   float: none;
@@ -19,4 +23,12 @@ a {
 
 .user-name {
   font-style: italic;
+}
+
+.login-item {
+  margin-bottom: 15px;
+}
+
+.center-item {
+  text-align: center;
 }

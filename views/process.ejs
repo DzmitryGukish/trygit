@@ -1,0 +1,7 @@
+<% layout('./layouts/default') -%>
+
+<% block('title', title); -%>
+
+<div>
+  Redirect by link <span class='alert'><%= locals.path %></span> to <span class='alert'><%= locals.realPath %></span>
+</div>
